@@ -81,9 +81,12 @@ def encrypt_message():
 
         # Convert the message to numbers and encrypt
         encrypted_message = [pow(ord(char), e, n) for char in message]
-        messagebox.showinfo("Encrypted Message", f"Encrypted: {encrypted_message}")
+        result.config(state=tk.NORMAL)  # Enable editing temporarily
+        result.delete(1.0, tk.END)  # Clear the text box
+        result.insert(tk.END, f"Result: {encrypted_message}")
+        result.config(state=tk.DISABLED)
     except Exception as ex:
-        messagebox.showerror("Error", f"An error occurred during encryption: {str(ex)}")
+        messagebox.showerror("Error", "Please enter valid numbers.")
 
 def decrypt_message():
     try:
@@ -116,9 +119,13 @@ def decrypt_message():
         # Convert the ciphertext to numbers and decrypt
         encrypted_list = eval(ciphertext)
         decrypted_message = ''.join([chr(pow(char, d, n)) for char in encrypted_list])
-        messagebox.showinfo("Decrypted Message", f"Decrypted: {decrypted_message}")
+        
+        result2.config(state=tk.NORMAL)  # Enable editing temporarily
+        result2.delete(1.0, tk.END)  # Clear the text box
+        result2.insert(tk.END, f"Result: {decrypted_message}")
+        result2.config(state=tk.DISABLED)
     except Exception as ex:
-        messagebox.showerror("Error", f"An error occurred during decryption: {str(ex)}")
+        messagebox.showerror("Error", "Please enter valid inputs.")
 
 # Placeholder behavior
 def add_placeholder(entry, placeholder_text):
@@ -269,8 +276,13 @@ entry_e2 = Entry(container2,width=111,border=0,font=('bold',11), bg="#0F3555",fg
 entry_e2.place(x=43+20,y=43/2+260+60*4+12)
 add_placeholder(entry_e2, "Please enter e:  ")
 
+result = Text(container2, font=("Segoe UI", 11, 'bold'), bg="white", fg="#6D6D6D", width=90, height=2, border=0)
+result.insert(tk.END, "Result: ")
+result.config(state=tk.DISABLED)
+result.place(x=50,y=43/2+260+60*5)
+
 sumbitButton2 = Button(container2, image=buttonImage2, command=encrypt_message, border=0, background="white")
-sumbitButton2.place(x=250, y=43/2+260+60*5)
+sumbitButton2.place(x=250, y=43/2+260+60*6-10)
 ####################################################################################################################################################
 # Similar layout for tab3 (same as tab2)
 entrylabel = Label(container3, image=e2image, border=0, background="white")
@@ -315,7 +327,12 @@ entry_d2 = Entry(container3,width=111,border=0,font=('bold',11), bg="#0F3555",fg
 entry_d2.place(x=43+20,y=43/2+260+60*5+12)
 add_placeholder(entry_d2, "Please enter d:  ")
 
+result2 = Text(container3, font=("Segoe UI", 11, 'bold'), bg="white", fg="#6D6D6D", width=90, height=2, border=0)
+result2.insert(tk.END, "Result: ")
+result2.config(state=tk.DISABLED)
+result2.place(x=50,y=43/2+260+60*6-5)
+
 sumbitButton2 = Button(container3, image=buttonImage3, command=decrypt_message, border=0, background="white")
-sumbitButton2.place(x=250, y=43/2+260+60*6-5)
+sumbitButton2.place(x=500, y=43/2+260+60*6-5)
 if __name__ == "__main__":
     root.mainloop()
