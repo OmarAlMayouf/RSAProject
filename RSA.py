@@ -173,12 +173,13 @@ def add_placeholder(entry, placeholder_text):
 
 # Create the main window
 root = Tk()
-root.title("RSA Encryption")
+root.title("RSA")
+root.iconbitmap("icon.ico")
 root.geometry("1010x1000")  # Set the window size
 root.resizable (False, False)
 root.config(bg="#0F3555")  # Background color to blue
 
-# ASSETS
+# IMAGE ASSETS
 eimage = PhotoImage(file="Rectangle.png")
 e2image = PhotoImage(file="RectangleBig.png")
 containerImage = PhotoImage(file="Container.png")
@@ -186,15 +187,22 @@ containerImage2 = PhotoImage(file="Container2.png")
 buttonImage = PhotoImage(file="Button.png")
 buttonImage2 = PhotoImage(file="Button2.png")
 buttonImage3 = PhotoImage(file="Button3.png")
+mainImage = PhotoImage(file="mainImage.png")
 
-# Add the "RSA" title along with credits text
-credit_Text = "\tCreated by: \n@Omar Abdulrahman Al Mayouf\n@Fares Essa Al Duhailan\n@Abdulaziz Abdulrahman Al Khonefer \n@Abdulrahman Ibrahim Al Saadan"
+# Add the credits text
+credit_Text = "\n\n\tCreated by: \n@Omar Abdulrahman Al Mayouf\n@Fares Essa Al Duhailan\n@Abdulaziz Abdulrahman Al Khonefer \n@Abdulrahman Ibrahim Al Saadan"
 lable_credits = Label(root, text=credit_Text, font=("Segoe UI", 12, "italic"), bg="#0F3555", fg="#B4B4B4", justify="left")
-lable_credits.place(x=0, y=0)
-label_title = tk.Label(root, text="RSA", font=("Segoe UI", 78, "bold italic"), bg="#0F3555", fg="white")
+lable_credits.place(x=20, y=0)
+
+# Add the "RSA" title
+label_title = tk.Label(root, text="RSA", font=("Segoe UI", 80, "bold italic"), bg="#0F3555", fg="white")
 label_title.pack(pady=20)  # Add some padding for title
 
-# Create a tabbed interface (Notebook) at the top of the window
+# Create the main image(the security image) for the root
+main_image = Label(root, image=mainImage, border=0)
+main_image.place(x=750, y=40)
+
+# Create a notebook and style them
 style = ttk.Style()
 style.theme_use('classic')
 style.configure('TNotebook', background="#0F3555")
@@ -205,12 +213,12 @@ style.map("TNotebook.Tab", background = [("selected", "#ffffff")], foreground = 
 notebook = ttk.Notebook(root, style="TNotebook")
 notebook.pack(pady=0, padx=0, fill="x")
 
-# Create two tabs
+# Create three tabs
 tab1 = Frame(notebook, bg="#0F3555")
 tab2 = Frame(notebook, bg="#0F3555")
 tab3 = Frame(notebook, bg="#0F3555")
 
-# Add tabs to the notebook
+# Add the tabs to the notebook
 notebook.add(tab1, text="Validate")
 notebook.add(tab2, text="Encrypt")
 notebook.add(tab3, text="Decrypt")
@@ -220,12 +228,12 @@ container1 = Label(tab1, image=containerImage, border=40, bg="#0F3555")
 container1.pack_propagate(False)
 container1.pack(pady=100)
 
-# Create a white container from the "Container.png" image for tab2
+# Create a white container from the "Container2.png" image for tab2
 container2 = Label(tab2, image=containerImage2, border=40, bg="#0F3555")
 container2.pack_propagate(False)
 container2.pack(pady=10)
 
-# Create a white container from the "Container.png" image for tab3
+# Create a white container from the "Container2.png" image for tab3
 container3 = Label(tab3, image=containerImage2, border=40, bg="#0F3555")
 container3.pack_propagate(False)
 container3.pack(pady=10)
