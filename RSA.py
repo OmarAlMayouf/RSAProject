@@ -53,6 +53,8 @@ def validate_inputs():
 
 def encrypt_message():
     try:
+        result.config(state=tk.NORMAL)  # Enable editing temporarily
+        result.delete(1.0, tk.END)  # Clear the text box
         message = entry_message.get()
         p = int(entry_p2.get())
         q = int(entry_q2.get())
@@ -61,35 +63,45 @@ def encrypt_message():
         e = int(entry_e2.get())
         # Check prime numbers
         if not is_prime(p) or not is_prime(q):
-            messagebox.showerror("Error", "Both p and q must be prime numbers.")
+            result.configure(fg="red")
+            result.insert(tk.END, "*Error, Both p and q must be prime numbers.")
             return
 
         # Check n
         if n != p * q:
-            messagebox.showerror("Error", "n is incorrect. It should be p * q.")
+            result.configure(fg="red")
+            result.insert(tk.END, "*Error, n is incorrect. It should be p * q.")
             return
 
         # Check phi(n)
         if phi_n != (p - 1) * (q - 1):
-            messagebox.showerror("Error", "phi(n) is incorrect.")
+            result.configure(fg="red")
+            result.insert(tk.END, "*Error, phi(n) is incorrect.")
             return
 
         # Check e
         if e < 3 or e >= phi_n or math.gcd(e, phi_n) != 1 or math.gcd(e, n) != 1:
-            messagebox.showerror("Error", "e is invalid. It should be coprime with phi(n) and n.")
+            result.configure(fg="red")
+            result.insert(tk.END, "*Error, e is invalid. It should be coprime with phi(n) and n.")
             return
 
         # Convert the message to numbers and encrypt
         encrypted_message = [pow(ord(char), e, n) for char in message]
-        result.config(state=tk.NORMAL)  # Enable editing temporarily
-        result.delete(1.0, tk.END)  # Clear the text box
+        
+        result.configure(fg="#6D6D6D")
         result.insert(tk.END, f"Result: {encrypted_message}")
         result.config(state=tk.DISABLED)
     except Exception as ex:
-        messagebox.showerror("Error", "Please enter valid numbers.")
+        result.config(state=tk.NORMAL)  # Enable editing temporarily
+        result.delete(1.0, tk.END)  # Clear the text box
+        result.configure(fg="red")
+        result.insert(tk.END, "*Error, Please enter valid inputs.")
+        result.config(state=tk.DISABLED)
 
 def decrypt_message():
     try:
+        result2.config(state=tk.NORMAL)  # Enable editing temporarily
+        result2.delete(1.0, tk.END)  # Clear the text box
         ciphertext = entry_cypher.get()
         p = int(entry_p3.get())
         q = int(entry_q3.get())
@@ -99,33 +111,45 @@ def decrypt_message():
         d = int(entry_d2.get())
         # Check prime numbers
         if not is_prime(p) or not is_prime(q):
-            messagebox.showerror("Error", "Both p and q must be prime numbers.")
+            result2.configure(fg="red")
+            result2.insert(tk.END, "*Error, Both p and q must be prime numbers.")
             return
 
         # Check n
         if n != p * q:
-            messagebox.showerror("Error", "n is incorrect. It should be p * q.")
+            result2.configure(fg="red")
+            result2.insert(tk.END, "*Error, n is incorrect. It should be p * q.")
             return
 
         # Check phi(n)
         if phi_n != (p - 1) * (q - 1):
-            messagebox.showerror("Error", "phi(n) is incorrect.")
+            result2.configure(fg="red")
+            result2.insert(tk.END, "*Error, phi(n) is incorrect.")
             return
         
+        # Check e
+        if e < 3 or e >= phi_n or math.gcd(e, phi_n) != 1 or math.gcd(e, n) != 1:
+            result2.configure(fg="red")
+            result2.insert(tk.END, "*Error, e is invalid. It should be coprime with phi(n) and n.")
+            return
         # Check d
         if (d * e) % phi_n != 1:
-            messagebox.showerror("Error", "d is incorrect. (d * e) % phi(n) should be 1.")
+            result2.configure(fg="red")
+            result2.insert(tk.END, "*Error, d is incorrect. (d * e) % phi(n) should be 1.")
             return
         # Convert the ciphertext to numbers and decrypt
         encrypted_list = eval(ciphertext)
         decrypted_message = ''.join([chr(pow(char, d, n)) for char in encrypted_list])
         
-        result2.config(state=tk.NORMAL)  # Enable editing temporarily
-        result2.delete(1.0, tk.END)  # Clear the text box
+        result2.configure(fg="#6D6D6D")
         result2.insert(tk.END, f"Result: {decrypted_message}")
         result2.config(state=tk.DISABLED)
     except Exception as ex:
-        messagebox.showerror("Error", "Please enter valid inputs.")
+        result2.config(state=tk.NORMAL)  # Enable editing temporarily
+        result2.delete(1.0, tk.END)  # Clear the text box
+        result2.configure(fg="red")
+        result2.insert(tk.END, "*Error, Please enter valid inputs.")
+        result2.config(state=tk.DISABLED)
 
 # Placeholder behavior
 def add_placeholder(entry, placeholder_text):
@@ -171,7 +195,14 @@ label_title = tk.Label(root, text="RSA", font=("Segoe UI", 78, "bold italic"), b
 label_title.pack(pady=20)  # Add some padding for title
 
 # Create a tabbed interface (Notebook) at the top of the window
-notebook = ttk.Notebook(root)
+style = ttk.Style()
+style.theme_use('classic')
+style.configure('TNotebook', background="#0F3555")
+
+style.configure('TNotebook.Tab', background='#0f3555', foreground='white', font=('Segoe UI', 11, 'italic'), border=0)
+style.map("TNotebook.Tab", background = [("selected", "#ffffff")], foreground = [("selected", "black")], font = [("selected", ('Segoe UI', 14, 'bold'))])
+
+notebook = ttk.Notebook(root, style="TNotebook")
 notebook.pack(pady=0, padx=0, fill="x")
 
 # Create two tabs
