@@ -239,6 +239,11 @@ container3.pack_propagate(False)
 container3.pack(pady=10)
 ############################################################################################################################################################
 # For tab1 input fields with placeholders
+
+#dummy entry
+dummy = Entry(container1, bg="white", fg="white", border=0)
+dummy.place(x=30, y=43/2)
+
 entrylabel = Label(container1, image=eimage, border=0)
 entrylabel.place(x=30, y=43/2)
 entry_p = Entry(container1, width=87, border=0, font=('bold', 11), bg="#0F3555", fg="white")
@@ -279,6 +284,11 @@ sumbitButton1 = Button(container1, image=buttonImage, command=validate_inputs, b
 sumbitButton1.place(x=220, y=43/2+45*6)
 ####################################################################################################################################################
 # Similar layout for tab2 (almost same as tab1)
+
+#dummy entry
+dummy = Entry(container2, bg="white", fg="white", border=0)
+dummy.place(x=30, y=43/2)
+
 entrylabel = Label(container2, image=e2image, border=0, background="white")
 entrylabel.place(x=30, y=43/2)
 entry_message = Entry(container2, width=87, border=0, font=('bold', 11), bg="#0F3555", fg="white")
@@ -324,6 +334,11 @@ sumbitButton2 = Button(container2, image=buttonImage2, command=encrypt_message, 
 sumbitButton2.place(x=220, y=43/2+120+45*6)
 ####################################################################################################################################################
 # Similar layout for tab3 (same as tab2)
+
+#dummy entry
+dummy = Entry(container3, bg="white", fg="white", border=0)
+dummy.place(x=30, y=43/2)
+
 entrylabel = Label(container3, image=e2image, border=0, background="white")
 entrylabel.place(x=30, y=43/2)
 entry_cypher = Entry(container3, width=87, border=0, font=('bold', 11), bg="#0F3555", fg="white")
