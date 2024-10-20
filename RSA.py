@@ -37,7 +37,7 @@ def validate_inputs():
             return
 
         # Check e
-        if e < 3 or e >= phi_n or math.gcd(e, phi_n) != 1 or math.gcd(e, n) != 1:
+        if e < 2 or e >= phi_n or math.gcd(e, phi_n) != 1 or math.gcd(e, n) != 1:
             messagebox.showerror("Error", "e is invalid. It should be coprime with phi(n) and n.")
             return
 
@@ -80,7 +80,7 @@ def encrypt_message():
             return
 
         # Check e
-        if e < 3 or e >= phi_n or math.gcd(e, phi_n) != 1 or math.gcd(e, n) != 1:
+        if e < 2 or e >= phi_n or math.gcd(e, phi_n) != 1 or math.gcd(e, n) != 1:
             result.configure(fg="red")
             result.insert(tk.END, "*Error, e is invalid. It should be coprime with phi(n) and n.")
             return
@@ -128,7 +128,7 @@ def decrypt_message():
             return
         
         # Check e
-        if e < 3 or e >= phi_n or math.gcd(e, phi_n) != 1 or math.gcd(e, n) != 1:
+        if e < 2 or e >= phi_n or math.gcd(e, phi_n) != 1 or math.gcd(e, n) != 1:
             result2.configure(fg="red")
             result2.insert(tk.END, "*Error, e is invalid. It should be coprime with phi(n) and n.")
             return
